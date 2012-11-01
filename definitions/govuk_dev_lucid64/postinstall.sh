@@ -88,7 +88,7 @@ sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform F
 mkdir -p /etc/puppet
 cat >/etc/puppet/puppet.conf <<EOM
 [main]
-modulepath=/var/govuk/puppet/modules
+modulepath=/var/govuk/puppet/modules:/var/govuk/puppet/vendor/modules
 manifestdir=/var/govuk/puppet/manifests
 EOM
 
