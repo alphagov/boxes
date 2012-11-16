@@ -77,7 +77,7 @@ apt-get -y update
 apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 
 # Install and configure puppet
-gem install puppet sqlite3 --no-ri --no-rdoc
+gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
 
 echo "FACTER_govuk_class=development" >> /etc/environment
 echo "FACTER_govuk_platform=development" >> /etc/environment
