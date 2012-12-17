@@ -94,8 +94,7 @@ EOM
 
 cat >/usr/local/bin/govuk_puppet <<EOM
 #!/bin/sh
-cd /var/govuk/puppet
-exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp $@
+exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
 EOM
 chmod +x /usr/local/bin/govuk_puppet
 
