@@ -8,15 +8,28 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y install linux-headers-$(uname -r) build-essential
 apt-get -y install zlib1g-dev libssl-dev libreadline-gplv2-dev
-apt-get -y install curl
 apt-get clean
 
+# Installing the virtualbox guest additions
+apt-get -y install dkms
+VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
+cd /tmp
+wget http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
+mount -o loop VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
+sh /mnt/VBoxLinuxAdditions.run
+umount /mnt
+
+rm VBoxGuestAdditions_$VBOX_VERSION.iso
+
 # Setup sudo to allow no-password sudo for "admin"
+groupadd -r admin
+usermod -a -G admin vagrant
 cp /etc/sudoers /etc/sudoers.orig
 sed -i -e '/Defaults\s\+env_reset/a Defaults\texempt_group=admin' /etc/sudoers
 sed -i -e 's/%admin ALL=(ALL) ALL/%admin ALL=NOPASSWD:ALL/g' /etc/sudoers
-groupadd -r admin || true
-usermod -a -G admin vagrant
+
+# Add puppet user and group
+adduser --system --group --home /var/lib/puppet puppet
 
 # Install NFS client
 apt-get -y install nfs-common
@@ -28,16 +41,6 @@ cd /home/vagrant/.ssh
 wget --no-check-certificate 'https://raw.github.com/mitchellh/vagrant/master/keys/vagrant.pub' -O authorized_keys
 chmod 600 /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
-
-# Installing the virtualbox guest additions
-VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
-cd /tmp
-wget http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
-mount -o loop VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
-sh /mnt/VBoxLinuxAdditions.run
-umount /mnt
-
-rm VBoxGuestAdditions_$VBOX_VERSION.iso
 
 # Remove items used for building, since they aren't needed anymore
 apt-get -y remove linux-headers-$(uname -r)
@@ -70,9 +73,6 @@ echo "pre-up sleep 2" >> /etc/network/interfaces
 apt-key adv --keyserver keyserver.ubuntu.com --recv 24B253BC
 echo "deb http://gds-packages.s3-website-us-east-1.amazonaws.com current main" > /etc/apt/sources.list.d/gds.list
 
-# Install sqlite
-apt-get -y install sqlite3 libsqlite3-dev
-
 # Install ruby
 apt-get -y install python-software-properties
 apt-add-repository ppa:brightbox/ruby-ng
@@ -80,7 +80,8 @@ apt-get -y update
 apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 
 # Install and configure puppet
-gem install puppet sqlite3 --no-ri --no-rdoc
+gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
+gem install -v "= 1.2.3" bundler --no-ri --no-rdoc
 
 echo "FACTER_govuk_class=development" >> /etc/environment
 echo "FACTER_govuk_platform=development" >> /etc/environment
@@ -97,8 +98,7 @@ EOM
 
 cat >/usr/local/bin/govuk_puppet <<EOM
 #!/bin/sh
-cd /var/govuk/puppet
-exec sudo RUBYOPT="-W0" puppet apply manifests/site.pp $@
+exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
 EOM
 chmod +x /usr/local/bin/govuk_puppet
 
