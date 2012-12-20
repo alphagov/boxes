@@ -1,1 +1,0 @@
-../../helpers/harden.sh

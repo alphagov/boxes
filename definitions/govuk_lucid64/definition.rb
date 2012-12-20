@@ -43,7 +43,7 @@ Veewee::Session.declare( {
   :kickstart_timeout    => "60",
   :memory_size          => '384',
   :os_type_id           => 'Ubuntu_64',
-  :postinstall_files    => [ "postinstall.sh", "harden.sh" ],
+  :postinstall_files    => [ "postinstall.sh" ],
   :postinstall_timeout  => "10000",
   :ssh_login_timeout    => "60",
   :ssh_user             => "ubuntu",
