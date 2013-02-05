@@ -11,7 +11,7 @@ Veewee::Session.declare({
   :boot_wait            => '10',
   :cpu_count            => '1',
   :disk_format          => 'VDI',
-  :disk_size            => '10140',
+  :disk_size            => '25600',
   :hostiocache          => 'off',
   :iso_download_timeout => '60',
   :iso_file             => 'ubuntu-12.04.1-server-amd64.iso',
