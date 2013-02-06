@@ -102,4 +102,7 @@ exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
 EOM
 chmod +x /usr/local/bin/govuk_puppet
 
+# Remove myself
+rm -f /home/vagrant/postinstall.sh
+
 exit
