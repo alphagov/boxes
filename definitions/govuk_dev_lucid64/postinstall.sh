@@ -74,6 +74,9 @@ apt-add-repository ppa:brightbox/ruby-ng
 apt-get -y update
 apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 
+# Install a few other packages that should be installed by default
+apt-get -y install git-core moreutils
+
 # Install and configure puppet
 gem install -v "= 2.7.19" puppet --no-ri --no-rdoc
 gem install -v "= 1.2.3" bundler --no-ri --no-rdoc
