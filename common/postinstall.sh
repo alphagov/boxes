@@ -99,7 +99,7 @@ sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform F
 
 cat >/usr/local/bin/govuk_puppet <<EOM
 #!/bin/sh
-exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
+exec sh /var/govuk/puppet/tools/puppet-apply "\$@"
 EOM
 chmod +x /usr/local/bin/govuk_puppet
 
