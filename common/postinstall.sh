@@ -96,12 +96,6 @@ echo "FACTER_govuk_platform=development" >> /etc/environment
 # Setup sudo to preserve Facter variables
 sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform"' /etc/sudoers
 
-cat >/usr/local/bin/govuk_puppet <<EOM
-#!/bin/sh
-exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
-EOM
-chmod +x /usr/local/bin/govuk_puppet
-
 # Finally, preinstall GitHub keys
 cat >>/etc/ssh/ssh_known_hosts <<EOM
 # github.com SSH-2.0-OpenSSH_5.5p1 Debian-6+squeeze1+github8
