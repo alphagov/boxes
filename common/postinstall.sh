@@ -91,17 +91,10 @@ apt-get -y install git-core moreutils
 gem install -v "= 3.2.2" puppet --no-ri --no-rdoc
 gem install -v "= 1.2.3" bundler --no-ri --no-rdoc
 
-echo "FACTER_govuk_class=development" >> /etc/environment
 echo "FACTER_govuk_platform=development" >> /etc/environment
 
 # Setup sudo to preserve Facter variables
-sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform FACTER_govuk_class"' /etc/sudoers
-
-cat >/usr/local/bin/govuk_puppet <<EOM
-#!/bin/sh
-exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
-EOM
-chmod +x /usr/local/bin/govuk_puppet
+sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform"' /etc/sudoers
 
 # Finally, preinstall GitHub keys
 cat >>/etc/ssh/ssh_known_hosts <<EOM
