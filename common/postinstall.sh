@@ -86,10 +86,18 @@ apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 
 # Install a few other packages that should be installed by default
 apt-get -y install git-core moreutils
-
-# Install and configure puppet
-gem install -v "= 3.2.2" puppet --no-ri --no-rdoc
 gem install -v "= 1.2.3" bundler --no-ri --no-rdoc
+
+# Install puppet repo and packages
+if ! dpkg -l puppetlabs-release >/dev/null; then
+  TMPFILE=$(mktemp)
+  wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+  dpkg -i ${TMPFILE}
+  rm ${TMPFILE}
+  apt-get update -qq
+fi
+
+apt-get install -y puppet='3.2.*' puppet-common='3.2.*'
 
 echo "FACTER_govuk_platform=development" >> /etc/environment
 
