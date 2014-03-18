@@ -86,22 +86,23 @@ apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 
 # Install a few other packages that should be installed by default
 apt-get -y install git-core moreutils
-
-# Install and configure puppet
-gem install -v "= 3.2.2" puppet --no-ri --no-rdoc
 gem install -v "= 1.2.3" bundler --no-ri --no-rdoc
 
-echo "FACTER_govuk_class=development" >> /etc/environment
+# Install puppet repo and packages
+if ! dpkg -l puppetlabs-release >/dev/null; then
+  TMPFILE=$(mktemp)
+  wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+  dpkg -i ${TMPFILE}
+  rm ${TMPFILE}
+  apt-get update -qq
+fi
+
+apt-get install -y puppet='3.4.*' puppet-common='3.4.*'
+
 echo "FACTER_govuk_platform=development" >> /etc/environment
 
 # Setup sudo to preserve Facter variables
-sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform FACTER_govuk_class"' /etc/sudoers
-
-cat >/usr/local/bin/govuk_puppet <<EOM
-#!/bin/sh
-exec sh /var/govuk/puppet/tools/puppet-apply-dev "\$@"
-EOM
-chmod +x /usr/local/bin/govuk_puppet
+sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform"' /etc/sudoers
 
 # Finally, preinstall GitHub keys
 cat >>/etc/ssh/ssh_known_hosts <<EOM
