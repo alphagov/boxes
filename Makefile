@@ -22,6 +22,8 @@ govuk_dev_precise64.box: definitions/govuk_dev_precise64/*
 	$(VEEWEE) export -f govuk_dev_precise64
 
 clean:
+	$(VEEWEE) destroy -f govuk_dev_lucid64
+	$(VEEWEE) destroy -f govuk_dev_precise64
 	rm -f *.box
 
 sync-lucid: lucid 
