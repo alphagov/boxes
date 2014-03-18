@@ -97,7 +97,7 @@ if ! dpkg -l puppetlabs-release >/dev/null; then
   apt-get update -qq
 fi
 
-apt-get install -y puppet='3.2.*' puppet-common='3.2.*'
+apt-get install -y puppet='3.4.*' puppet-common='3.4.*'
 
 echo "FACTER_govuk_platform=development" >> /etc/environment
 
