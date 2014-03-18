@@ -1,4 +1,4 @@
-VEEWEE = bundle exec vagrant basebox
+VEEWEE = bundle exec veewee vbox
 VERSION := $(shell date +'%Y%m%d')
 
 all: lucid precise
