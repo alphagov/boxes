@@ -74,10 +74,6 @@ echo "pre-up sleep 2" >> /etc/network/interfaces
 # Start GOV.UK-specific setup
 #
 
-# Set up the GOV.UK apt repository
-apt-key adv --keyserver keyserver.ubuntu.com --recv 24B253BC
-echo "deb http://gds-packages.s3-website-us-east-1.amazonaws.com current main" > /etc/apt/sources.list.d/gds.list
-
 # Install ruby
 apt-get -y install python-software-properties
 apt-add-repository ppa:brightbox/ruby-ng
