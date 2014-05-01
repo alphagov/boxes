@@ -15,11 +15,6 @@ else
 fi
 apt-get clean
 
-# Install VMWare Tools and headers. Instructions from:
-# https://help.ubuntu.com/community/VMware/Tools
-apt-get -y install open-vm-tools
-apt-get -y install --no-install-recommends open-vm-dkms
-
 # Setup sudo to allow no-password sudo for "admin"
 groupadd -r admin
 usermod -a -G admin vagrant
