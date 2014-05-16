@@ -54,7 +54,4 @@ apt-get -y install ruby1.9.1 ruby1.9.1-dev rubygems
 # Install and configure puppet
 gem install puppet --no-ri --no-rdoc
 
-# Set sudo to preserve Facter variables
-sed -i -e '/Defaults\s\+env_reset/a Defaults\tenv_keep+="FACTER_govuk_platform FACTER_govuk_class FACTER_govuk_provider"' /etc/sudoers
-
 exit
