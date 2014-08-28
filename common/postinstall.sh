@@ -14,14 +14,12 @@ gem install -v "= 1.6.5" bundler --no-ri --no-rdoc
 PLATFORM=$(/usr/sbin/virt-what)
 echo "Detected platform: ${PLATFORM}"
 # Installing the virtualbox guest additions
-if [ "$PLATFORM" == "virtualbox" ]; then
+if [ "$PLATFORM" = "virtualbox" ]; then
   VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
-  cd /tmp
-  wget http://download.virtualbox.org/virtualbox/$VBOX_VERSION/VBoxGuestAdditions_$VBOX_VERSION.iso
-  mount -o loop VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
+  mount -o loop /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
   sh /mnt/VBoxLinuxAdditions.run
   umount /mnt
-  rm VBoxGuestAdditions_$VBOX_VERSION.iso
+  rm /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso
 fi
 
 # Install Puppet
