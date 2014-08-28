@@ -8,7 +8,9 @@ apt-get update -qq
 # Upgrade to the latest packages
 apt-get -y upgrade
 # Install packages we need
-apt-get -y install linux-headers-$(uname -r) build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev git-core moreutils dkms nfs-common ruby1.9.1 ruby1.9.1-dev libruby1.9.1 python-software-properties virt-what
+apt-get -y install build-essential zlib1g-dev libssl-dev libreadline-gplv2-dev git-core moreutils dkms nfs-common ruby1.9.1 ruby1.9.1-dev libruby1.9.1 python-software-properties virt-what
+# Install kernel headers for all the kernels we have
+apt-get -y install $(ls /lib/modules | awk '{print "linux-headers-" $0}')
 gem install -v "= 1.6.5" bundler --no-ri --no-rdoc
 
 PLATFORM=$(/usr/sbin/virt-what)
@@ -16,17 +18,22 @@ echo "Detected platform: ${PLATFORM}"
 # Installing the virtualbox guest additions
 if [ "$PLATFORM" = "virtualbox" ]; then
   VBOX_VERSION=$(cat /home/vagrant/.vbox_version)
-  mount -o loop /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt
-  sh /mnt/VBoxLinuxAdditions.run
-  umount /mnt
+  mkdir -p /mnt/cdrom
+  mount -o loop /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso /mnt/cdrom
+  sh /mnt/cdrom/VBoxLinuxAdditions.run
+  umount /mnt/cdrom
   rm /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso
 fi
 if [ "$PLATFORM" = "vmware" ]; then
-  mount -o loop /home/vagrant/linux.iso /mnt
-  tar zxf /mnt/VMwareTools-*.tar.gz -C /tmp/
+  mkdir -p /mnt/cdrom
+  mount -o loop /home/vagrant/linux.iso /mnt/cdrom
+  tar zxf /mnt/cdrom/VMwareTools-*.tar.gz -C /tmp/
   /tmp/vmware-tools-distrib/vmware-install.pl -d
+  sed -i 's/answer AUTO_KMODS_ENABLED no/answer AUTO_KMODS_ENABLED yes/g' /etc/vmware-tools/locations
+  sed -i 's/answer AUTO_KMODS_ENABLED_ANSWER no/answer AUTO_KMODS_ENABLED_ANSWER yes/g' /etc/vmware-tools/locations
+  /usr/bin/vmware-config-tools.pl -d
   rm -rf /tmp/vmware-tools-distrib
-  umount /mnt
+  umount /mnt/cdrom
   rm /home/vagrant/linux.iso
 fi
 
@@ -70,7 +77,6 @@ github.gds ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJsR5gu4+LPnomBEO37hY0l1chnD6U3
 EOM
 
 # Remove items used for building, since they aren't needed anymore
-apt-get -y remove linux-headers-$(uname -r)
 apt-get -y autoremove
 apt-get clean
 
