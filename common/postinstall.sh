@@ -21,6 +21,14 @@ if [ "$PLATFORM" = "virtualbox" ]; then
   umount /mnt
   rm /home/vagrant/VBoxGuestAdditions_$VBOX_VERSION.iso
 fi
+if [ "$PLATFORM" = "vmware" ]; then
+  mount -o loop /home/vagrant/linux.iso /mnt
+  tar zxf /mnt/VMwareTools-*.tar.gz -C /tmp/
+  /tmp/vmware-tools-distrib/vmware-install.pl -d
+  rm -rf /tmp/vmware-tools-distrib
+  umount /mnt
+  rm /home/vagrant/linux.iso
+fi
 
 # Install Puppet
 adduser --system --group --home /var/lib/puppet puppet
