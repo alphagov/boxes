@@ -10,11 +10,11 @@ This repository contains [VeeWee][vw] scripts for building virtual machines for 
 
 ## Usage
 
-    # Build the lucid box
-    make lucid
-    
+    # Build the precise box for virtualbox
+    make precise
+
     # Upload the box to GDS S3 (assuming you've set up s3cmd)
-    make sync-lucid
+    make sync-precise
 
     # Build and sync all boxes
     make sync
