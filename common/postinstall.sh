@@ -46,7 +46,7 @@ rm ${TMPFILE}
 apt-get update -qq
 apt-get install -y puppet='3.4.*' puppet-common='3.4.*' facter='1.7.5*'
 
-# Make sure our ruby is 1.9.3p0 again after Puppet futzes with it
+# Make sure our ruby is 1.9.3p0 again after Puppet has required ruby1.8
 update-alternatives --set ruby /usr/bin/ruby1.9.1
 
 # Setup sudo to allow no-password sudo for "admin"
