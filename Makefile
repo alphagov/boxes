@@ -10,9 +10,11 @@ precise_vmware_fusion: govuk_dev_precise64_vmware_fusion_$(VERSION).box
 
 govuk_dev_precise64_$(VERSION).box: govuk_dev_precise64.box
 	cp -p govuk_dev_precise64.box govuk_dev_precise64_$(VERSION).box
+	rm -f govuk_dev_precise64.box
 
 govuk_dev_precise64_vmware_fusion_$(VERSION).box: govuk_dev_precise64_vmware_fusion.box
 	cp -p govuk_dev_precise64_vmware_fusion.box govuk_dev_precise64_vmware_fusion_$(VERSION).box
+	rm -f govuk_dev_precise64_vmware_fusion.box
 
 govuk_dev_precise64.box: definitions/govuk_dev_precise64/*
 	$(VEEWEE) vbox build -f govuk_dev_precise64
