@@ -38,9 +38,10 @@ if [ "$PLATFORM" = "vmware" ]; then
 fi
 
 # Install Puppet
+. /etc/lsb-release
 adduser --system --group --home /var/lib/puppet puppet
 TMPFILE=$(mktemp)
-wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-precise.deb
+wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb
 dpkg -i ${TMPFILE}
 rm ${TMPFILE}
 apt-get update -qq
