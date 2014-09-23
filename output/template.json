@@ -1,4 +1,11 @@
 {
+  "variables": {
+    "disk_size": 102400,
+    "http_directory": "http",
+    "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
+    "ssh_password": "vagrant",
+    "ssh_username": "vagrant"
+  },
   "builders": [
     {
       "name": "virtualbox_precise64",
@@ -11,16 +18,16 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
       ],
-      "disk_size": 102400,
+      "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "Ubuntu_64",
-      "http_directory": "http",
+      "http_directory": "{{user `http_directory`}}",
       "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
       "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso",
-      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
+      "shutdown_command": "{{user `shutdown_command`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_username": "{{user `ssh_username`}}",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -49,15 +56,15 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
       ],
-      "disk_size": 102400,
+      "disk_size": "{{user `disk_size`}}",
       "guest_os_type": "ubuntu-64",
-      "http_directory": "http",
+      "http_directory": "{{user `http_directory`}}",
       "iso_checksum": "769474248a3897f4865817446f9a4a53",
       "iso_checksum_type": "md5",
       "iso_url": "http://releases.ubuntu.com/12.04/ubuntu-12.04.5-server-amd64.iso",
-      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
+      "shutdown_command": "{{user `shutdown_command`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_username": "{{user `ssh_username`}}",
       "type": "vmware-iso",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -76,16 +83,16 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
       ],
-      "disk_size": 102400,
+      "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "Ubuntu_64",
-      "http_directory": "http",
+      "http_directory": "{{user `http_directory`}}",
       "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
       "iso_checksum_type": "md5",
       "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
-      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
+      "shutdown_command": "{{user `shutdown_command`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_username": "{{user `ssh_username`}}",
       "type": "virtualbox-iso",
       "vboxmanage": [
         [
@@ -114,15 +121,15 @@
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false <wait>",
         "initrd=/install/initrd.gz -- <enter><wait>"
       ],
-      "disk_size": 102400,
+      "disk_size": "{{user `disk_size`}}",
       "guest_os_type": "ubuntu-64",
-      "http_directory": "http",
+      "http_directory": "{{user `http_directory`}}",
       "iso_checksum": "ca2531b8cd79ea5b778ede3a524779b9",
       "iso_checksum_type": "md5",
       "iso_url": "http://releases.ubuntu.com/14.04.1/ubuntu-14.04.1-server-amd64.iso",
-      "shutdown_command": "echo 'shutdown -P now' > shutdown.sh; echo 'vagrant'|sudo -S sh 'shutdown.sh'",
-      "ssh_password": "vagrant",
-      "ssh_username": "vagrant",
+      "shutdown_command": "{{user `shutdown_command`}}",
+      "ssh_password": "{{user `ssh_password`}}",
+      "ssh_username": "{{user `ssh_username`}}",
       "type": "vmware-iso",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
