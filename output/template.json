@@ -70,7 +70,7 @@
       }
     }
   ],
-  "post-processors": null,
+  "post-processors": [ "vagrant" ],
   "provisioners": [
     {
       "override": {
