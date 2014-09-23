@@ -1,6 +1,7 @@
 {
   "builders": [
     {
+      "name": "virtualbox_precise64",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
@@ -41,6 +42,7 @@
       "virtualbox_version_file": ".vbox_version"
     },
     {
+      "name": "vmware_precise64",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
