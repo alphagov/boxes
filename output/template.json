@@ -75,14 +75,7 @@
   "post-processors": [ "vagrant" ],
   "provisioners": [
     {
-      "override": {
-        "virtualbox-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
-        },
-        "vmware-iso": {
-          "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'"
-        }
-      },
+      "execute_command": "echo 'vagrant'|sudo -S sh '{{.Path}}'",
       "scripts": [
         "scripts/postinstall.sh"
       ],
