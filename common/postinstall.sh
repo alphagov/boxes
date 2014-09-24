@@ -37,6 +37,12 @@ if [ "$PLATFORM" = "vmware" ]; then
   rm /home/vagrant/linux.iso
 fi
 
+# Add GOV.UK PPA for Hiera eYAML GPG package
+cat <<EOF >/etc/apt/sources.list.d/govuk-ppa.list
+deb [arch=amd64] http://apt.production.alphagov.co.uk/govuk/ppa/production precise main
+EOF
+sudo apt-key adv --recv-keys --keyserver keys.gnupg.net 37E3ACBB
+
 # Install Puppet
 . /etc/lsb-release
 adduser --system --group --home /var/lib/puppet puppet
@@ -45,7 +51,7 @@ wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODEN
 dpkg -i ${TMPFILE}
 rm ${TMPFILE}
 apt-get update -qq
-apt-get install -y puppet='3.4.*' puppet-common='3.4.*' facter='1.7.5*'
+apt-get install -y puppet='3.4.*' puppet-common='3.4.*' facter='1.7.5*' ruby-hiera-eyaml-gpg
 
 # Make sure our ruby is 1.9.3p0 again after Puppet has required ruby1.8
 update-alternatives --set ruby /usr/bin/ruby1.9.1
