@@ -25,4 +25,4 @@ On the following hypervisors:
     packer build template.json
 
     # Upload the box to GOV.UK's Amazon S3 bucket (assuming you've set up s3cmd)
-    s3cmd sync --acl-public example.box 's3://gds-boxes/'
+    s3cmd sync --acl-public govuk_dev_precise64_$(date "+%Y%m%d").box 's3://gds-boxes/'

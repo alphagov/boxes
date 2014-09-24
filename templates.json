@@ -8,7 +8,7 @@
   },
   "builders": [
     {
-      "name": "virtualbox_precise64",
+      "name": "precise64",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
@@ -46,7 +46,7 @@
       "virtualbox_version_file": ".vbox_version"
     },
     {
-      "name": "vmware_precise64",
+      "name": "precise64_vmware_fusion",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
@@ -73,7 +73,7 @@
       }
     },
     {
-      "name": "virtualbox_trusty64",
+      "name": "trusty64",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
@@ -111,7 +111,7 @@
       "virtualbox_version_file": ".vbox_version"
     },
     {
-      "name": "vmware_trusty64",
+      "name": "trusty64_vmware_fusion",
       "boot_command": [
         "<esc><esc><enter><wait>",
         "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
@@ -141,7 +141,8 @@
   "post-processors": [
     {
       "type": "vagrant",
-      "compression_level": 9
+      "compression_level": 9,
+      "output": "govuk_dev_{{.BuildName}}_{{isotime \"20060102\"}}.box"
     }
   ],
   "provisioners": [
