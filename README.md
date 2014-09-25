@@ -1,20 +1,28 @@
-# GOV.UK vagrant base boxes
+# GOV.UK Vagrant base boxes
 
-This repository contains [VeeWee][vw] scripts for building virtual machines for the GOV.UK environment.
+This repository contains [Packer] templates for building virtual machines for the GOV.UK environment.
 
-[vw]: https://github.com/jedi4ever/veewee/
+Currently supports:
+
+  - Ubuntu Precise LTS
+  - Ubuntu Trusty LTS
+
+On the following hypervisors:
+
+  - VirtualBox
+  - VMware Fusion
+
+[packer]: http://www.packer.io
 
 ## Install
 
-    bundle install
+    brew tap homebrew/binary
+    brew install packer
 
 ## Usage
 
-    # Build the precise box for virtualbox
-    make precise
+    # Build all the boxes (currently Ubuntu Precise and Trusty for Virtualbox and VMWare Fusion)
+    packer build template.json
 
-    # Upload the box to GDS S3 (assuming you've set up s3cmd)
-    make sync-precise
-
-    # Build and sync all boxes
-    make sync
+    # Upload the box to GOV.UK's Amazon S3 bucket (assuming you've set up s3cmd)
+    s3cmd sync --acl-public govuk_dev_precise64_$(date "+%Y%m%d").box 's3://gds-boxes/'

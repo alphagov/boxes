@@ -1,1 +1,0 @@
-../../common/definition_precise64.rb
