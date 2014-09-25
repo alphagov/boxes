@@ -65,6 +65,7 @@
       "shutdown_command": "{{user `shutdown_command`}}",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_username": "{{user `ssh_username`}}",
+      "tools_upload_flavor": "linux",
       "type": "vmware-iso",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
@@ -130,6 +131,7 @@
       "shutdown_command": "{{user `shutdown_command`}}",
       "ssh_password": "{{user `ssh_password`}}",
       "ssh_username": "{{user `ssh_username`}}",
+      "tools_upload_flavor": "linux",
       "type": "vmware-iso",
       "vmx_data": {
         "cpuid.coresPerSocket": "1",
