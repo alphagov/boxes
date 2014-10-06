@@ -1,3 +1,6 @@
+# Source DISTRIB_ env vars
+. /etc/lsb-release
+
 # Know when this box was created
 date > /etc/vagrant_box_build_time
 
@@ -39,12 +42,11 @@ fi
 
 # Add GOV.UK PPA for Hiera eYAML GPG package
 cat <<EOF >/etc/apt/sources.list.d/govuk-ppa.list
-deb [arch=amd64] http://apt.production.alphagov.co.uk/govuk/ppa/production precise main
+deb [arch=amd64] http://apt.production.alphagov.co.uk/govuk/ppa/production ${DISTRIB_CODENAME} main
 EOF
 sudo apt-key adv --recv-keys --keyserver keys.gnupg.net 37E3ACBB
 
 # Install Puppet
-. /etc/lsb-release
 adduser --system --group --home /var/lib/puppet puppet
 TMPFILE=$(mktemp)
 wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODENAME}.deb
