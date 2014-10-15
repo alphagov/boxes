@@ -53,7 +53,7 @@ wget -qO ${TMPFILE} http://apt.puppetlabs.com/puppetlabs-release-${DISTRIB_CODEN
 dpkg -i ${TMPFILE}
 rm ${TMPFILE}
 apt-get update -qq
-apt-get install -y puppet='3.4.*' puppet-common='3.4.*' facter='1.7.5*' ruby-hiera-eyaml-gpg
+apt-get install -y puppet='3.6.*' puppet-common='3.6.*' facter='1.7.5*' ruby-hiera-eyaml-gpg
 
 # Make sure our ruby is 1.9.3p0 again after Puppet has required ruby1.8
 update-alternatives --set ruby /usr/bin/ruby1.9.1
