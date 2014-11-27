@@ -1,3 +1,12 @@
+# This repository is no longer maintained
+
+The code here is no longer used or maintained.
+
+At the time it was retired, in November 2014, this code was known to work. We
+have retired this repo as its contents have been merged with an internal
+repository in a bid to simplify the way that we create VM templates, such that
+we can create VMware and Vagrant templates from the same configuration.
+
 # GOV.UK Vagrant base boxes
 
 This repository contains [Packer] templates for building virtual machines for the GOV.UK environment.
